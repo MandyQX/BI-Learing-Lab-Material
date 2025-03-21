@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "529 New Account Dashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ed05c94d-68fa-4190-9e3b-294a7166aeae"
+  }
+}

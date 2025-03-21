@@ -1,0 +1,269 @@
+table master_529
+	isHidden
+	lineageTag: 6efd797d-3a49-41e9-ae61-831ec6a056a5
+
+	measure 'Total Existing Investor' = ```
+			
+			CALCULATE(
+				COUNTA('master_529'[Final Group]),
+				'master_529'[Final Group] IN { "Existing 529 Investor" , "Existing TA Investor" } 
+			)
+			```
+		formatString: 0
+		isHidden
+		lineageTag: c632b4f2-04c6-4944-9d16-0b267d9a08b7
+
+		changedProperty = IsHidden
+
+	measure 'Total New Investor' =
+			
+			CALCULATE(
+				COUNTA('master_529'[Final Group]),
+				'master_529'[Final Group] IN { "New VCM Investor" }
+			)
+		formatString: 0
+		isHidden
+		lineageTag: db820a7f-f1f2-48de-88bf-b11cf9c52e1f
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "FilteredMeasure"
+				}
+
+		changedProperty = FormatString
+
+		changedProperty = IsHidden
+
+	column as_of_dt
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: f70f1702-ce33-4075-9b92-8bcc3c448e2e
+		summarizeBy: none
+		sourceColumn: as_of_dt
+
+		variation Variation
+			isDefault
+			relationship: 717e58d5-e843-48ea-9001-11d574bddb95
+			defaultHierarchy: LocalDateTable_cf72117c-c30b-49d9-afdd-776d347830d7.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column vm_vcm_id__pc
+		dataType: string
+		isHidden
+		lineageTag: a37f5676-07cc-4495-8208-657618f2b6d6
+		summarizeBy: none
+		sourceColumn: vm_vcm_id__pc
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column uii_account_num
+		dataType: string
+		isHidden
+		lineageTag: ddf53641-b4af-41f5-8066-50602461743a
+		summarizeBy: none
+		sourceColumn: uii_account_num
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column vm_opened_date__c
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: f132dd7d-c7c0-4e97-a885-a06fe9f32184
+		summarizeBy: none
+		sourceColumn: vm_opened_date__c
+
+		variation Variation
+			isDefault
+			relationship: 4e790729-5606-4125-ae60-6aeea3424075
+			defaultHierarchy: LocalDateTable_c820a9a4-2571-4181-81e8-73a5760111b5.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column reopened_date
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: d4db0594-7811-42d8-814c-bad092b2befd
+		summarizeBy: none
+		sourceColumn: reopened_date
+
+		variation Variation
+			isDefault
+			relationship: 0508e5e8-76bd-40bf-80b7-4f81a3a64404
+			defaultHierarchy: LocalDateTable_eb5926aa-0db7-40a5-a2ed-533d4766b3b1.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column balance_aum
+		dataType: double
+		isHidden
+		lineageTag: a36b5528-3ef3-47fb-8076-d8275eb6e085
+		summarizeBy: sum
+		sourceColumn: balance_aum
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column max_open_date
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 6164ee47-75fd-4a02-9b9c-8dfbcf295bf8
+		summarizeBy: none
+		sourceColumn: max_open_date
+
+		variation Variation
+			isDefault
+			relationship: 380036c5-eb8f-498a-9f5b-5d8a33d2863c
+			defaultHierarchy: LocalDateTable_dfa108c1-dfc7-4f38-9910-43d3a4976b8f.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FundingStatus = IF([balance_aum] > 0, "Funded", "Unfunded")
+		isHidden
+		lineageTag: 73d6e199-b525-481e-ba9d-e06c7782e5ab
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountStatus = ```
+			IF(RIGHT('master_529'[uii_account_num], 1) = "1", "TBD", "Existing 529 Investor")
+			
+			
+			```
+		isHidden
+		lineageTag: 7369a673-a1a5-4f5d-b5f1-8252a00f248c
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Compare w/ mmf' = ```
+			
+			IF(
+			    'master_529'[vm_vcm_id__pc] IN VALUES('master_529'[mmf_vcm_id]), 
+			    "w/ mf", 
+			    "w/o mf"
+			)
+			
+			```
+		isHidden
+		lineageTag: f872b23f-ce07-4798-bdab-60169b0cbea8
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column mmf_vcm_id
+		dataType: string
+		isHidden
+		lineageTag: 227d0d95-993e-48a7-abce-1c87bb267318
+		summarizeBy: none
+		sourceColumn: mmf_vcm_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column mmf_first_open_date
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 680b4bc0-00bb-43a9-ad25-d34acc48e71f
+		summarizeBy: none
+		sourceColumn: mmf_first_open_date
+
+		variation Variation
+			isDefault
+			relationship: 82f0f6ef-1a0d-490f-95f0-3e648cb6c02e
+			defaultHierarchy: LocalDateTable_2e423396-3f72-4b57-a537-bab271072f6a.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Final Group' = ```
+			
+			IF(
+			    'master_529'[AccountStatus] = "TBD",
+			    IF(
+			        ('master_529'[Compare w/ mmf]) = "w/o mf", 
+			        "New VCM Investor",
+			        IF(
+			            'master_529'[mmf_first_open_date] >= [max_open_date], 
+			            "New VCM Investor", 
+			            "Existing TA Investor"
+			        )
+			    ),
+			    "Existing 529 Investor"
+			)
+			
+			```
+		isHidden
+		lineageTag: 64fb0d74-b876-444b-9967-b4d277e25176
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'max_open_date Hierarchy'
+		isHidden
+		lineageTag: 6acbb207-f9a2-4605-9573-ca4d10110e95
+
+		level max_open_date
+			lineageTag: 4f7581c8-a75e-4da2-aed4-2a9820162d1d
+			column: max_open_date
+
+		changedProperty = IsHidden
+
+	partition master_529 = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(AmazonRedshift.Database("dna-prod-redshift.cfrjenkxf5fj.us-east-1.redshift.amazonaws.com","dna_prod_rs_spe"), "with new_529_table as(#(lf)#(tab)select as_of_dt#(lf)    #(tab),vm_vcm_id__pc#(lf)        ,uii_account_num #(lf)        ,vm_opened_date__c::date#(lf)        ,reopened_date #(lf)        ,vm_account_status__c#(lf)        ,balance_aum#(lf)        ,GREATEST(vm_opened_date__c, reopened_date)::date AS max_open_date#(lf)        ,case when reopened_date is null then vm_closed_date__c #(lf)            when ((reopened_date::date > vm_closed_date__c::date)) then NULL#(lf)            when (reopened_date::date < vm_closed_date__c::date) then vm_closed_date__c #(lf)        end as true_closed_date#(lf)    from dbo.master_529 AS m #(lf)    where as_of_dt = (select Max(as_of_dt)#(lf)#(tab)#(tab)#(tab)from dbo.master_529)#(lf))#(tab)#(lf)#(lf), mutual_fund_table as (#(lf)#(tab)select vm_vcm_id__pc#(lf)    , MIN(dte_acct_opn)as min_open_date#(lf)#(tab)from dbo.new_master_mutual_fundv5 #(lf)#(tab)where calendar_dt = (select Max(calendar_dt)#(lf)#(tab)#(tab)#(tab)#(tab)#(tab)#(tab)from dbo.new_master_mutual_fundv5)       -- reporting date#(lf)#(tab)and mf_acct_nbr_comp = '591'           -- Victory Funds accounts #(lf)#(tab)and mf_acct_id_dlr in ('1900','VCMI')  -- member type (VCMI = employees, 1900 = general)#(lf)#(tab)and mf_acct_acct_stat = 'O'            -- open accounts#(lf)--#(tab)and aum > 0                            -- accounts with a balance #(lf)#(tab)and vm_vcm_id__pc not in ('1605093389', '210018171', '220012327', '200178598')  -- removing test accounts#(lf)group by vm_vcm_id__pc#(tab)#(lf))#(lf)#(lf)select a.*#(lf), b. vm_vcm_id__pc as mmf_vcm_id#(lf), b. min_open_date as mmf_first_open_date#(lf)from new_529_table as a#(lf)left join mutual_fund_table as b#(lf)on a. vm_vcm_id__pc = b. vm_vcm_id__pc", null, [EnableFolding=true]),
+				    #"Filtered Rows" = Table.SelectRows(Source, each [max_open_date] >= #date(2023, 1, 1)),
+				    #"Remove Empty vcm_id" = Table.SelectRows(#"Filtered Rows", each [vm_vcm_id__pc] <> null and [vm_vcm_id__pc] <> ""),
+				    #"Removed Columns" = Table.RemoveColumns(#"Remove Empty vcm_id",{"vm_account_status__c", "true_closed_date"})
+				in
+				    #"Removed Columns"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

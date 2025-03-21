@@ -1,0 +1,25 @@
+relationship 717e58d5-e843-48ea-9001-11d574bddb95
+	joinOnDateBehavior: datePartOnly
+	fromColumn: master_529.as_of_dt
+	toColumn: LocalDateTable_cf72117c-c30b-49d9-afdd-776d347830d7.Date
+
+relationship 4e790729-5606-4125-ae60-6aeea3424075
+	joinOnDateBehavior: datePartOnly
+	fromColumn: master_529.vm_opened_date__c
+	toColumn: LocalDateTable_c820a9a4-2571-4181-81e8-73a5760111b5.Date
+
+relationship 0508e5e8-76bd-40bf-80b7-4f81a3a64404
+	joinOnDateBehavior: datePartOnly
+	fromColumn: master_529.reopened_date
+	toColumn: LocalDateTable_eb5926aa-0db7-40a5-a2ed-533d4766b3b1.Date
+
+relationship 380036c5-eb8f-498a-9f5b-5d8a33d2863c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: master_529.max_open_date
+	toColumn: LocalDateTable_dfa108c1-dfc7-4f38-9910-43d3a4976b8f.Date
+
+relationship 82f0f6ef-1a0d-490f-95f0-3e648cb6c02e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: master_529.mmf_first_open_date
+	toColumn: LocalDateTable_2e423396-3f72-4b57-a537-bab271072f6a.Date
+

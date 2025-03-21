@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "529 New Account Dashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "92f1d3e7-298d-411d-996f-7d6ddb9463ff"
+  }
+}
